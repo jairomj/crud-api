@@ -14,6 +14,15 @@ return new class extends Migration
     public function up()
     {
         //
+        Schema::create('departamento', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
+            $table->bigInteger('pasiente_id')->unsigned();
+            $table->string('nombre')->required();
+
+            $table->timestamps();
+            $table->foreign('pasiente_id')->references('id')->on('pasiente')->onDelete('cascade');
+        });
     }
 
     /**
@@ -24,14 +33,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::create('departamento', function (Blueprint $table) {
-            $table->engine = "InnoDB";
-            $table->bigIncrements('id');
-            $table->bigInteger('pasiente_id')->unsigned();
-            $table->string('nombre')->required();
 
-            $table->timestamps();
-            $table->foreign('pasiente_id')->references('id')->on('pasiente')->onDelete('cascade');
-        });
     }
 };
